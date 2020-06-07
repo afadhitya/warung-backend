@@ -1,0 +1,9 @@
+ {
+    "name": "Warung API",
+    "description": "Warung API",
+    "keywords": [
+      "go"
+    ],
+    "website": "https://github.com/afadhitya/warung-backend",
+    "repository": "https://github.com/afadhitya/warung-backend"
+  }
