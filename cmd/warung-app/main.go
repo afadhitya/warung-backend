@@ -22,6 +22,7 @@ func setRouter() {
 	{
 		catV1.POST("/", services.SaveCategory)
 		catV1.GET("/", services.GetAllCategory)
+		catV1.GET("/:id", services.GetOneCategory)
 	}
 
 	goodV1 := router.Group("/api/v1/good")

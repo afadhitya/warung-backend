@@ -54,7 +54,7 @@ func GetAllGood(c *gin.Context) {
 
 func GetOneGood(c *gin.Context) {
 	id, _ := strconv.ParseInt((c.Param("id")), 10, 64)
-	good := getOne(id)
+	good := getOneGood(id)
 
 	if good.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
@@ -70,7 +70,7 @@ func GetOneGood(c *gin.Context) {
 	})
 }
 
-func getOne(id int64) models.Good {
+func getOneGood(id int64) models.Good {
 	var good models.Good
 	models.DB.Debug().Preload("Category").First(&good, id)
 	return good
