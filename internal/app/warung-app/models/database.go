@@ -1,15 +1,21 @@
 package models
 
 import (
+	_ "database/sql"
+
+	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	// _ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 var DB *gorm.DB
 
 func InitDB() {
+
+	dbConnectionStr := "afadhitya:password@cloudsql(fluted-insight-279501:asia-southeast2:warung-adita-db)/warung_db?charset=utf8&parseTime=True&loc=UTC"
+	// "root@/warung_db?charset=utf8&parseTime=True&loc=Local"
 	var err error
-	DB, err = gorm.Open("mysql", "root@/warung_db?charset=utf8&parseTime=True&loc=Local")
+	DB, err = gorm.Open("mysql", dbConnectionStr)
 	if err != nil {
 		panic("failed to connect database")
 	}
