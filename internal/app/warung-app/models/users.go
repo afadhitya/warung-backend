@@ -1,0 +1,13 @@
+package models
+
+import "github.com/jinzhu/gorm"
+
+type User struct {
+	gorm.Model
+	Username    string
+	Password    string
+	Name        string
+	Address     string
+	PhoneNumber string
+	Email       string
+}

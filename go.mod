@@ -1,4 +1,4 @@
-module github.com/afadhitya/warung-app
+module github.com/afadhitya/warung-backend
 
 go 1.14
 

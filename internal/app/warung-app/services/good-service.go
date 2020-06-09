@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/afadhitya/warung-app/internal/app/warung-app/models"
+	"github.com/afadhitya/warung-backend/internal/app/warung-app/models"
 	"github.com/gin-gonic/gin"
 )
 

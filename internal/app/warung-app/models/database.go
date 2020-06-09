@@ -5,7 +5,7 @@ import (
 
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 	"github.com/jinzhu/gorm"
-	// _ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 var DB *gorm.DB
@@ -20,8 +20,20 @@ func InitDB() {
 		panic("failed to connect database")
 	}
 
-	DB.DropTableIfExists(&Category{}, &Good{})
-	DB.AutoMigrate(&Category{}, &Good{})
+	DB.DropTableIfExists(
+		&Category{},
+		&Good{},
+		&Item{},
+		&User{},
+		&Order{},
+	)
+	DB.AutoMigrate(
+		&Category{},
+		&Good{},
+		&Item{},
+		&User{},
+		&Order{},
+	)
 
 	createDummyData()
 }

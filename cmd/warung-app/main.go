@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/afadhitya/warung-app/internal/app/warung-app/models"
-	"github.com/afadhitya/warung-app/internal/app/warung-app/services"
+	"github.com/afadhitya/warung-backend/internal/app/warung-app/models"
+	"github.com/afadhitya/warung-backend/internal/app/warung-app/services"
 	"github.com/gin-gonic/gin"
 )
 
