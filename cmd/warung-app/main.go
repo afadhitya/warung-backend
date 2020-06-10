@@ -34,5 +34,10 @@ func setRouter() {
 		goodV1.PUT("/:id", services.UpdateGood)
 	}
 
+	userV1 := router.Group("/api/v1/user")
+	{
+		userV1.POST("/signup", services.SignUp)
+	}
+
 	router.Run()
 }
