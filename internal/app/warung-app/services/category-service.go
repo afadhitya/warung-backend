@@ -1,6 +1,7 @@
 package services
 
 import (
+	"github.com/afadhitya/warung-backend/internal/app/warung-app/config"
 	"net/http"
 	"strconv"
 
@@ -12,7 +13,7 @@ func SaveCategory(c *gin.Context) {
 
 	category := getAttribute(c)
 
-	models.DB.Save(&category)
+	config.DB.Save(&category)
 	c.JSON(http.StatusCreated, gin.H{
 		"status":     http.StatusCreated,
 		"message":    "Category has saved to DB",
@@ -23,7 +24,7 @@ func SaveCategory(c *gin.Context) {
 func GetAllCategory(c *gin.Context) {
 	var categories []models.Category
 	// var goods []models.Good
-	models.DB.Debug().Preload("Goods").Find(&categories)
+	config.DB.Debug().Preload("Goods").Find(&categories)
 
 	if len(categories) <= 0 {
 		c.JSON(http.StatusNotFound, gin.H{
@@ -63,7 +64,7 @@ func UpdateCategory(c *gin.Context) {
 	}
 
 	categoryUpdated := getAttribute(c)
-	models.DB.Model(&category).Updates(categoryUpdated)
+	config.DB.Model(&category).Updates(categoryUpdated)
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": http.StatusOK,
@@ -73,7 +74,7 @@ func UpdateCategory(c *gin.Context) {
 
 func getOneCategory(id int) models.Category {
 	var category models.Category
-	models.DB.Debug().Preload("Goods").First(&category, id)
+	config.DB.Debug().Preload("Goods").First(&category, id)
 	return category
 }
 

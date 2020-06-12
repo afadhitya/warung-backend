@@ -1,6 +1,8 @@
 package services
 
 import (
+	"github.com/afadhitya/warung-backend/internal/app/warung-app/config"
+	"github.com/afadhitya/warung-backend/internal/app/warung-app/util"
 	"net/http"
 	"strconv"
 
@@ -11,7 +13,7 @@ import (
 func SaveGood(c *gin.Context) {
 	good := getGoodAttributes(c)
 
-	models.DB.Save(&good)
+	config.DB.Save(&good)
 	c.JSON(http.StatusCreated, gin.H{
 		"status":     http.StatusCreated,
 		"message":    "Category has saved to DB",
@@ -20,17 +22,11 @@ func SaveGood(c *gin.Context) {
 }
 
 func GetAllGood(c *gin.Context) {
-	// var category models.Category
 	var goods []models.Good
-	models.DB.Debug().Preload("Category").Find(&goods)
+	config.DB.Debug().Preload("Category").Find(&goods)
 
-	// .Related(&category)
 	if len(goods) <= 0 {
-		c.JSON(http.StatusNotFound, gin.H{
-			"status":  http.StatusNotFound,
-			"message": "No good found",
-		})
-
+		util.SetContextError(c, http.StatusNotFound, "No good found")
 		return
 	}
 
@@ -44,7 +40,7 @@ func GetOneGood(c *gin.Context) {
 	id, _ := strconv.ParseInt((c.Param("id")), 10, 64)
 	good := getOneGood(id)
 
-	if isGoodNotFount(&good, c) {
+	if isGoodNotFound(&good, c) {
 		return
 	}
 
@@ -58,13 +54,28 @@ func UpdateGood(c *gin.Context) {
 	id, _ := strconv.ParseInt(c.Param("id"), 10, 64)
 	good := getOneGood(id)
 
-	if isGoodNotFount(&good, c) {
+	if isGoodNotFound(&good, c) {
 		return
 	}
 
 	goodUpdated := getGoodAttributes(c)
-	models.DB.Model(&good).Updates(goodUpdated)
+	config.DB.Model(&good).Updates(goodUpdated)
 
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"data":   good,
+	})
+}
+
+func DeleteGood(c *gin.Context){
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 64)
+	good := getOneGood(id)
+
+	if isGoodNotFound(&good, c) {
+		return
+	}
+
+	config.DB.Debug().Delete(&good)
 	c.JSON(http.StatusOK, gin.H{
 		"status": http.StatusOK,
 		"data":   good,
@@ -73,16 +84,13 @@ func UpdateGood(c *gin.Context) {
 
 func getOneGood(id int64) models.Good {
 	var good models.Good
-	models.DB.Debug().Preload("Category").First(&good, id)
+	config.DB.Debug().Preload("Category").First(&good, id)
 	return good
 }
 
-func isGoodNotFount(good *models.Good, c *gin.Context) bool {
+func isGoodNotFound(good *models.Good, c *gin.Context) bool {
 	if good.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{
-			"status":  http.StatusNotFound,
-			"message": "No good found",
-		})
+		util.SetContextError(c, http.StatusNotFound, "Item not found")
 	}
 	return (good.ID == 0)
 }

@@ -1,7 +1,8 @@
-package models
+package config
 
 import (
 	_ "database/sql"
+	"github.com/afadhitya/warung-backend/internal/app/warung-app/models"
 
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 	"github.com/jinzhu/gorm"
@@ -21,28 +22,28 @@ func InitDB() {
 	}
 
 	DB.DropTableIfExists(
-		&Category{},
-		&Good{},
-		&Item{},
-		&User{},
-		&Order{},
+		&models.Category{},
+		&models.Good{},
+		&models.Item{},
+		&models.User{},
+		&models.Order{},
 	)
 	DB.AutoMigrate(
-		&Category{},
-		&Good{},
-		&Item{},
-		&User{},
-		&Order{},
+		&models.Category{},
+		&models.Good{},
+		&models.Item{},
+		&models.User{},
+		&models.Order{},
 	)
 
 	createDummyData()
 }
 
 func createDummyData() {
-	Cat1 := Category{
+	Cat1 := models.Category{
 		Name:       "drink",
 		CodeNumber: "1234",
-		Goods: []Good{
+		Goods: []models.Good{
 			{
 				Name:     "prutang",
 				Price:    7000,

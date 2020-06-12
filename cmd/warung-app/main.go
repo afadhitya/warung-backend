@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
+	"github.com/afadhitya/warung-backend/internal/app/warung-app/config"
 
-	"github.com/afadhitya/warung-backend/internal/app/warung-app/models"
 	"github.com/afadhitya/warung-backend/internal/app/warung-app/services"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	fmt.Println("application start")
-	models.InitDB()
+	config.InitDB()
 	setRouter()
 }
 
@@ -32,11 +32,13 @@ func setRouter() {
 		goodV1.GET("/", services.GetAllGood)
 		goodV1.GET("/:id", services.GetOneGood)
 		goodV1.PUT("/:id", services.UpdateGood)
+		goodV1.DELETE("/:id", services.DeleteGood)
 	}
 
 	userV1 := router.Group("/api/v1/user")
 	{
 		userV1.POST("/signup", services.SignUp)
+		userV1.POST("/login", services.SignIn)
 	}
 
 	router.Run()

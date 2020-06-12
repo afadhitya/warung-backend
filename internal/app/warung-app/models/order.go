@@ -7,4 +7,5 @@ type Order struct {
 	User  User
 	Items []Item
 	Total float64
+	Status int
 }
