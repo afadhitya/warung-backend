@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/afadhitya/warung-backend/internal/app/warung-app/config"
 
 	"github.com/afadhitya/warung-backend/internal/app/warung-app/services"
@@ -39,6 +40,11 @@ func setRouter() {
 	{
 		userV1.POST("/signup", services.SignUp)
 		userV1.POST("/login", services.SignIn)
+	}
+
+	orderV1 := router.Group("/api/v1/order")
+	{
+		orderV1.POST("/:userId/:goodId", services.AddItem)
 	}
 
 	router.Run()

@@ -37,7 +37,7 @@ func GetAllGood(c *gin.Context) {
 }
 
 func GetOneGood(c *gin.Context) {
-	id, _ := strconv.ParseInt((c.Param("id")), 10, 64)
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 64)
 	good := getOneGood(id)
 
 	if isGoodNotFound(&good, c) {
@@ -92,15 +92,15 @@ func isGoodNotFound(good *models.Good, c *gin.Context) bool {
 	if good.ID == 0 {
 		util.SetContextError(c, http.StatusNotFound, "Item not found")
 	}
-	return (good.ID == 0)
+	return good.ID == 0
 }
 
 func getGoodAttributes(c *gin.Context) models.Good {
 	name := c.PostForm("name")
 	price, _ := strconv.Atoi(c.PostForm("price"))
-	catID, _ := strconv.ParseUint((c.PostForm("catID")), 10, 64)
-	stock, _ := strconv.ParseInt((c.PostForm("stock")), 10, 64)
-	discount, _ := strconv.ParseFloat((c.PostForm("discount")), 64)
+	catID, _ := strconv.ParseUint(c.PostForm("catID"), 10, 64)
+	stock, _ := strconv.ParseInt(c.PostForm("stock"), 10, 64)
+	discount, _ := strconv.ParseFloat(c.PostForm("discount"), 64)
 
 	good := models.Good{
 		Name:       name,

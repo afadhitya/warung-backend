@@ -1,9 +1,10 @@
 package services
 
 import (
-	"github.com/afadhitya/warung-backend/internal/app/warung-app/config"
 	"net/http"
 	"strconv"
+
+	"github.com/afadhitya/warung-backend/internal/app/warung-app/config"
 
 	"github.com/afadhitya/warung-backend/internal/app/warung-app/models"
 	"github.com/gin-gonic/gin"
@@ -42,7 +43,7 @@ func GetAllCategory(c *gin.Context) {
 }
 
 func GetOneCategory(c *gin.Context) {
-	id, _ := strconv.ParseInt((c.Param("id")), 10, 64)
+	id, _ := strconv.ParseInt(c.Param("id"), 10, 64)
 	category := getOneCategory(int(id))
 
 	if isNotFound(&category, c) {
@@ -95,5 +96,5 @@ func isNotFound(cat *models.Category, c *gin.Context) bool {
 		})
 	}
 
-	return (cat.ID == 0)
+	return cat.ID == 0
 }

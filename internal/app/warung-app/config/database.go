@@ -2,6 +2,7 @@ package config
 
 import (
 	_ "database/sql"
+
 	"github.com/afadhitya/warung-backend/internal/app/warung-app/models"
 
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
@@ -21,22 +22,22 @@ func InitDB() {
 		panic("failed to connect database")
 	}
 
-	DB.DropTableIfExists(
-		&models.Category{},
-		&models.Good{},
-		&models.Item{},
-		&models.User{},
-		&models.Order{},
-	)
-	DB.AutoMigrate(
-		&models.Category{},
-		&models.Good{},
-		&models.Item{},
-		&models.User{},
-		&models.Order{},
-	)
+	// DB.DropTableIfExists(
+	// 	&models.Category{},
+	// 	&models.Good{},
+	// 	&models.Item{},
+	// 	&models.User{},
+	// 	&models.Order{},
+	// )
+	// DB.AutoMigrate(
+	// 	&models.Category{},
+	// 	&models.Good{},
+	// 	&models.Item{},
+	// 	&models.User{},
+	// 	&models.Order{},
+	// )
 
-	createDummyData()
+	// createDummyData()
 }
 
 func createDummyData() {

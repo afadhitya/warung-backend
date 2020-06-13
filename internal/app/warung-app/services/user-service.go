@@ -3,9 +3,10 @@ package services
 import (
 	"crypto/sha1"
 	"fmt"
+	"net/http"
+
 	"github.com/afadhitya/warung-backend/internal/app/warung-app/config"
 	"github.com/afadhitya/warung-backend/internal/app/warung-app/util"
-	"net/http"
 
 	"github.com/afadhitya/warung-backend/internal/app/warung-app/models"
 
@@ -89,7 +90,6 @@ func isUsernameNotAvailabel(username *string) bool {
 	return (count > 0)
 }
 
-func isUserNotAvailable(user *models.User) bool{
+func isUserNotAvailable(user *models.User) bool {
 	return (user.ID == 0)
 }
-
