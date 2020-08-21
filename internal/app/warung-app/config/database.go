@@ -14,7 +14,7 @@ var DB *gorm.DB
 
 func InitDB() {
 
-	dbConnectionStr := "root@/warung_db?charset=utf8&parseTime=True&loc=Local"
+	dbConnectionStr := "golang-user@/warung-db?charset=utf8&parseTime=True&loc=Local"
 	// "afadhitya:password@cloudsql(fluted-insight-279501:asia-southeast2:warung-adita-db)/warung_db?charset=utf8&parseTime=True&loc=UTC"
 	var err error
 	DB, err = gorm.Open("mysql", dbConnectionStr)
@@ -22,20 +22,20 @@ func InitDB() {
 		panic("failed to connect database")
 	}
 
-	// DB.DropTableIfExists(
-	// 	&models.Category{},
-	// 	&models.Good{},
-	// 	&models.Item{},
-	// 	&models.User{},
-	// 	&models.Order{},
-	// )
-	// DB.AutoMigrate(
-	// 	&models.Category{},
-	// 	&models.Good{},
-	// 	&models.Item{},
-	// 	&models.User{},
-	// 	&models.Order{},
-	// )
+	DB.DropTableIfExists(
+		&models.Category{},
+		&models.Good{},
+		&models.Item{},
+		&models.User{},
+		&models.Order{},
+	)
+	DB.AutoMigrate(
+		&models.Category{},
+		&models.Good{},
+		&models.Item{},
+		&models.User{},
+		&models.Order{},
+	)
 
 	// createDummyData()
 }
